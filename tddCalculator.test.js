@@ -29,4 +29,27 @@ describe("tddCalculator", () => {
   test("should support different delimiters", () => {
     expect(addFunction("//;\n1;2")).toBe(3);
   });
+
+  // Step 5
+  test("should throw an exception for negative numbers", () => {
+    expect(() => {
+      addFunction("-1,2");
+    }).toThrow("Negative numbers not allowed: -1");
+  });
+
+  // Step 5
+  test("should include all negative numbers in the exception message", () => {
+    expect(() => {
+      addFunction("2,-4,3,-5");
+    }).toThrow("Negative numbers not allowed: -4, -5");
+  });
+
+  // others
+  test("should handle custom delimiters with multiple numbers", () => {
+    expect(addFunction("//|\n1|2|3")).toBe(6);
+  });
+
+  test("should handle newlines and custom delimiters together", () => {
+    expect(addFunction("//;\n1;2\n3")).toBe(6);
+  });
 });
