@@ -16,5 +16,8 @@
     "url": "https://github.com/themohesh/tdd-assignment/issues"
   },
   "homepage": "https://github.com/themohesh/tdd-assignment#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
