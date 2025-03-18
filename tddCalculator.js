@@ -1,33 +1,34 @@
-export const addFunction = (nums) => {
-  //checck eempty value
-  if (nums == "") {
+const addFunction = (nums) => {
+  // Check for empty input
+  if (!nums) {
     return 0;
   }
+
   let delims = ",";
   let trimmedNums = nums.trim();
 
-  //custom delimiter
-  if (nums.startswith("//")) {
-    const delimsAndNums = delims.split("\n");
+  // Handle custom delimiter
+  if (nums.startsWith("//")) {
+    const delimsAndNums = nums.split("\n");
     delims = delimsAndNums[0].substring(2);
-    trimmedNums = delimsAndNums[1];
+    trimmedNums = delimsAndNums.slice(1).join("\n");
   }
 
-  //new line replacement
-  trimmedNums = trimmedNums.replace(/\n/g, delims);
+  // Replace newline characters with the delimiter
+  const regex = new RegExp(`[${delims}\n]`);
+  const numbers = trimmedNums.split(regex).map((x) => parseInt(x, 10));
 
-  //
-  const numbers = trimmedNums.split(delims).map((x) => parseInt(x, 10));
-
-  //
+  // Handle negative numbers
   const negativeNumbers = numbers.filter((x) => x < 0);
   if (negativeNumbers.length > 0) {
     throw new Error(
-      `Negative numbers not allowed: ${negativeNumbers.join(",")}`
+      `Negative numbers not allowed: ${negativeNumbers.join(", ")}`
     );
   }
-  
-  const sum = numbers.reduce((a, b) => a + b, 0);
 
+  // Calculate the sum
+  const sum = numbers.reduce((a, b) => a + b, 0);
   return sum;
 };
+
+module.exports = { addFunction };
